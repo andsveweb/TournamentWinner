@@ -3,5 +3,6 @@ public class Main {
 
         Tournament tournament = new Tournament();
         tournament.loadResultsFromFile("src/race-results.txt");
+        tournament.printParticipants();
     }
 }
