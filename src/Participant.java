@@ -33,4 +33,15 @@ public class Participant {
         return completedRaces.containsAll(requiredRaces);
     }
 
+    public long getTotalTimeInSeconds() {
+        if (!hasCompletedAllRaces()) {
+            return Long.MAX_VALUE;
+        }
+        long totalTime = 0;
+        for (RaceResult result : results) {
+            totalTime += result.getDurationInSeconds();
+        }
+        return totalTime;
+    }
+
 }

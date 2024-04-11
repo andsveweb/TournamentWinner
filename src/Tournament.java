@@ -75,6 +75,30 @@ public class Tournament {
         }
     }
 
+    public void determineWinner() {
+        Participant winner = null;
+        long bestTime = Long.MAX_VALUE;
+
+        for (Participant participant : participants) {
+            long totalTime = participant.getTotalTimeInSeconds();
+            if (totalTime < bestTime) {
+                bestTime = totalTime;
+                winner = participant;
+            }
+        }
+        if (winner != null) {
+            System.out.println("Winner is " + winner.getName() + " ID: " + winner.getId() + " with a total time of " + formatSeconds(bestTime));
+        } else {
+            System.out.println("No winner could be determined (not all participants completed the required races).");
+        }
+    }
+    private String formatSeconds(long seconds) {
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
+        return String.format("%02d:%02d:%02d", hours, minutes, secs);
+    }
+
     public void checkAndReportErrors() {
         errorManager.printErrors();
     }
