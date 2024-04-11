@@ -12,8 +12,10 @@ public class Tournament {
     public void loadResultsFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
-                if (!errorManager.validateLineFormat(line, 5)) {
+                lineNumber++;
+                if (!errorManager.validateLineFormat(line, 5, lineNumber)) {
                     continue;
                 }
 
@@ -24,12 +26,13 @@ public class Tournament {
                 String endTime = parts[3].trim();
                 String raceType = parts[4].trim();
 
-                if(!errorManager.validateName(name, line) ||
-                        !errorManager.validateId(id, line) ||
-                        errorManager.validateTime(startTime, line) ||
-                        errorManager.validateTime(endTime, line) ||
-                        !errorManager.validateRaceType(raceType, line) ||
-                        !errorManager.checkForIdConsistency(id, name, participantRegistry)) {
+                if(!errorManager.validateName(name, line, lineNumber) ||
+                        !errorManager.validateId(id, line, lineNumber) ||
+                        errorManager.validateTime(startTime, line, lineNumber) ||
+                        errorManager.validateTime(endTime, line, lineNumber) ||
+                        !errorManager.validateRaceType(raceType, line, lineNumber) ||
+                        !errorManager.validateTimeInterval(startTime, endTime, line, lineNumber) ||
+                        !errorManager.checkForIdConsistency(id, name, participantRegistry, lineNumber)) {
                         continue;
                 }
                 participantRegistry.put(id, name);
@@ -41,12 +44,12 @@ public class Tournament {
                     participant.addRaceResult(result);
 
                 } catch (Exception e) {
-                    errorManager.addError("Error processing line: " + line + ". Error: " + e.getMessage());
+                    errorManager.addError("Error processing line: " + line + ". Error: " + e.getMessage(), lineNumber);
 
                 }
             }
         } catch (Exception e) {
-            errorManager.addError("Error reading file " + e.getMessage());
+            errorManager.addError("Error reading file " + e.getMessage(), -1);
         }
     }
     private Participant findOrCreateParticipantBy(String name, String id) {
