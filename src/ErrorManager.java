@@ -45,7 +45,7 @@ public class ErrorManager {
 
     public boolean validateId(String id, String line, int lineNumber) {
         if(!id.matches("\\d+")) {
-            addError("Invalide ID detected in line: " + line + " ID should only contain numbers", lineNumber);
+            addError("Invalide ID detected in line: " + line +" ", lineNumber);
             return false;
         }
         return true;
@@ -63,7 +63,7 @@ public class ErrorManager {
         LocalTime start = LocalTime.parse(startTime);
         LocalTime end = LocalTime.parse(endTime);
         if (start.isAfter(end)) {
-            addError("Negativ time interval. Start time is later than end time" + " " + line, lineNumber);
+            addError("Negative time interval. Start time is later than end time" + " - " + line, lineNumber);
             return false;
         }
         return true;
