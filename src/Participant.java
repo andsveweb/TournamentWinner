@@ -4,7 +4,7 @@ import java.util.List;
 public class Participant {
     private final String name;
     private final String id;
-    private List<RaceResult> results = new ArrayList<>();
+    private final List<RaceResult> results = new ArrayList<>();
 
 
     public Participant(String name, String id) {
