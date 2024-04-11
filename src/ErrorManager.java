@@ -53,9 +53,9 @@ public class ErrorManager {
     public boolean validateTime(String time, String line) {
         if (!time.matches("\\d{2}:\\d{2}:\\d{2}")) {
             addError("Invalid time format detected in line: " + line + " Time should be in HH:MM:SS");
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public boolean validateRaceType(String raceType, String line) {

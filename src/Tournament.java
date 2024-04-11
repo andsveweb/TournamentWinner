@@ -24,8 +24,8 @@ public class Tournament {
 
                 if(!errorManager.validateName(name, line) ||
                         !errorManager.validateId(id, line) ||
-                !errorManager.validateTime(parts[2].trim(), line) ||
-                        !errorManager.validateTime(parts[3], line) ||
+                        errorManager.validateTime(parts[2].trim(), line) ||
+                        errorManager.validateTime(parts[3], line) ||
                         !errorManager.validateRaceType(parts[4], line) ||
                         !errorManager.checkForIdConsistency(id, name, participantRegistry)) {
                         continue;
