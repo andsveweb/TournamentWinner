@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,6 +57,16 @@ public class ErrorManager {
             return true;
         }
         return false;
+    }
+
+    public boolean validateTimeInterval(String startTime, String endTime, String line, int lineNumber) {
+        LocalTime start = LocalTime.parse(startTime);
+        LocalTime end = LocalTime.parse(endTime);
+        if (start.isAfter(end)) {
+            addError("Negativ time interval. Start time is later than end time");
+            return false;
+        }
+        return true;
     }
 
     public boolean validateRaceType(String raceType, String line) {

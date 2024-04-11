@@ -20,13 +20,15 @@ public class Tournament {
                 String[] parts = line.split(",");
                 String name = parts[0].trim().toLowerCase();
                 String id = parts[1].trim();
-
+                String startTime = parts[2].trim();
+                String endTime = parts[3].trim();
+                String raceType = parts[4].trim();
 
                 if(!errorManager.validateName(name, line) ||
                         !errorManager.validateId(id, line) ||
-                        errorManager.validateTime(parts[2].trim(), line) ||
-                        errorManager.validateTime(parts[3], line) ||
-                        !errorManager.validateRaceType(parts[4], line) ||
+                        errorManager.validateTime(startTime, line) ||
+                        errorManager.validateTime(endTime, line) ||
+                        !errorManager.validateRaceType(raceType, line) ||
                         !errorManager.checkForIdConsistency(id, name, participantRegistry)) {
                         continue;
                 }
@@ -49,7 +51,7 @@ public class Tournament {
     }
     private Participant findOrCreateParticipantBy(String name, String id) {
         for (Participant participant : participants) {
-            if (participant.getId().equals(id)) {
+            if (participant.getId().equals(id) && participant.getName().equals(name)) {
                 return participant;
             }
         }
