@@ -4,5 +4,7 @@ public class Main {
         Tournament tournament = new Tournament();
         tournament.loadResultsFromFile("src/resultsfiles/race-results.txt");
         tournament.printParticipants();
+        tournament.checkAndReportErrors();
+
     }
 }
