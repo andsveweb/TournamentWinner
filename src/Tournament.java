@@ -21,7 +21,7 @@ public class Tournament {
                 String endTime = parts[3].trim();
                 String raceType = parts[4].trim();
 
-                if(!errorManager.validateName(name, line)) {
+                if(!errorManager.validateName(name, line) || !errorManager.validateId(id, line)) {
                     continue;
                 }
                 try {

@@ -39,4 +39,12 @@ public class ErrorManager {
         }
         return true;
     }
+
+    public boolean validateId(String id, String line) {
+        if(!id.matches("\\d+")) {
+            addError("Invalide ID detected in line: " + line + " ID should only contain numbers");
+            return false;
+        }
+        return true;
+    }
 }
