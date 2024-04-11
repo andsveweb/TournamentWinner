@@ -13,17 +13,21 @@ public class Tournament {
                 if (!errorManager.validateLineFormat(line, 5)) {
                     continue;
                 }
-                try {
-                    String[] parts = line.split(",");
-                    String name = parts[0].trim();
-                    String id = parts[1].trim();
-                    String startTime = parts[2].trim();
-                    String endTime = parts[3].trim();
-                    String raceType = parts[4].trim();
 
-                    RaceResult result = new RaceResult(startTime, endTime, raceType);
-                    Participant participant = findOrCreateParticipantBy(name, id);
-                    participant.addRaceResult(result);
+                String[] parts = line.split(",");
+                String name = parts[0].trim();
+                String id = parts[1].trim();
+                String startTime = parts[2].trim();
+                String endTime = parts[3].trim();
+                String raceType = parts[4].trim();
+
+                if(!errorManager.validateName(name, line)) {
+                    continue;
+                }
+                try {
+                RaceResult result = new RaceResult(startTime, endTime, raceType);
+                Participant participant = findOrCreateParticipantBy(name, id);
+                participant.addRaceResult(result);
 
                 } catch (Exception e) {
                     errorManager.addError("Error processing line: " + line + ". Error: " + e.getMessage());

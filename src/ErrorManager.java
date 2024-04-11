@@ -31,4 +31,12 @@ public class ErrorManager {
         }
         return true;
     }
+
+    public boolean validateName(String name, String line) {
+        if(!name.matches("[a-zA-Z\\s]+")) {
+            addError("Invalid name detected in line: " + line + " Name should only contain letters and spaces.");
+            return false;
+        }
+        return true;
+    }
 }
