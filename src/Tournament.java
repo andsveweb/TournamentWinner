@@ -14,7 +14,7 @@ public class Tournament {
                     System.err.println("testing number of fields error" + line);
                     continue;
                 }
-                //System.out.println(line);
+
                 String name = parts[0].trim();
                 String id = parts[1].trim();
 
@@ -23,6 +23,7 @@ public class Tournament {
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+
         }
     }
 
