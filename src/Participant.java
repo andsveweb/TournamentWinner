@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Participant {
     private final String name;
@@ -20,18 +19,18 @@ public class Participant {
         return results;
     }
     public String getName() {
-
         return name;
     }
     public String getId() {
-
         return id;
     }
-
-
-
-
-
-
+    public boolean hasCompletedAllRaces() {
+        Set<String> requiredRaces = new HashSet<>(Arrays.asList("1000m", "eggRace", "sackRace"));
+        Set<String> completedRaces = new HashSet<>();
+        for (RaceResult result : results) {
+            completedRaces.add(result.getRaceType());
+        }
+        return completedRaces.containsAll(requiredRaces);
+    }
 
 }

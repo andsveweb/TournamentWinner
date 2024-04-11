@@ -9,6 +9,8 @@ public class Tournament {
     private final List<Participant> participants = new ArrayList<>();
     private final ErrorManager errorManager = new ErrorManager();
     private final Map<String, String> participantRegistry = new HashMap<>();
+
+    // Reads the text file and validate number of fields.
     public void loadResultsFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -26,6 +28,7 @@ public class Tournament {
                 String endTime = parts[3].trim();
                 String raceType = parts[4].trim();
 
+                // Error handling from ErrorManager class.
                 if(!errorManager.validateName(name, line, lineNumber) ||
                         !errorManager.validateId(id, line, lineNumber) ||
                         errorManager.validateTime(startTime, line, lineNumber) ||

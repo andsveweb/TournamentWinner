@@ -24,6 +24,8 @@ public class RaceResult {
         return String.format("%02d:%02d:%02d", hours, minutes, sec);
     }
 
+
+
     public String getRaceType() {
         return raceType;
     }
