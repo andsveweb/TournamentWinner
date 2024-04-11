@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class ErrorManager {
     private final List<String> errors = new ArrayList<>();
@@ -43,6 +45,31 @@ public class ErrorManager {
     public boolean validateId(String id, String line) {
         if(!id.matches("\\d+")) {
             addError("Invalide ID detected in line: " + line + " ID should only contain numbers");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateTime(String time, String line) {
+        if (!time.matches("\\d{2}:\\d{2}:\\d{2}")) {
+            addError("Invalid time format detected in line: " + line + " Time should be in HH:MM:SS");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateRaceType(String raceType, String line) {
+        List<String> validateType = Arrays.asList("eggRace", "1000m", "sackRace");
+        if (!validateType.contains(raceType)) {
+            addError("Invalid race type detected in line: " + line + " Race type must be one of eggRace, 1000m, sackRace");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkForIdConsistency(String id, String name, Map<String, String> participantRegistry) {
+        if (participantRegistry.containsKey(id) && !participantRegistry.get(id).equals(name)) {
+            addError("Data error. Different names with same id " + participantRegistry.get(id) + " and " + name + " have the same id " + id);
             return false;
         }
         return true;

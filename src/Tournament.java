@@ -1,11 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Tournament {
     private final List<Participant> participants = new ArrayList<>();
     private final ErrorManager errorManager = new ErrorManager();
+    private final Map<String, String> participantRegistry = new HashMap<>();
     public void loadResultsFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -15,19 +18,25 @@ public class Tournament {
                 }
 
                 String[] parts = line.split(",");
-                String name = parts[0].trim();
+                String name = parts[0].trim().toLowerCase();
                 String id = parts[1].trim();
-                String startTime = parts[2].trim();
-                String endTime = parts[3].trim();
-                String raceType = parts[4].trim();
 
-                if(!errorManager.validateName(name, line) || !errorManager.validateId(id, line)) {
-                    continue;
+
+                if(!errorManager.validateName(name, line) ||
+                        !errorManager.validateId(id, line) ||
+                !errorManager.validateTime(parts[2].trim(), line) ||
+                        !errorManager.validateTime(parts[3], line) ||
+                        !errorManager.validateRaceType(parts[4], line) ||
+                        !errorManager.checkForIdConsistency(id, name, participantRegistry)) {
+                        continue;
                 }
+                participantRegistry.put(id, name);
+
+
                 try {
-                RaceResult result = new RaceResult(startTime, endTime, raceType);
-                Participant participant = findOrCreateParticipantBy(name, id);
-                participant.addRaceResult(result);
+                    RaceResult result = new RaceResult(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                    Participant participant = findOrCreateParticipantBy(name, id);
+                    participant.addRaceResult(result);
 
                 } catch (Exception e) {
                     errorManager.addError("Error processing line: " + line + ". Error: " + e.getMessage());
