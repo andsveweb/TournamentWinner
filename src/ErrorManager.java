@@ -22,4 +22,13 @@ public class ErrorManager {
             System.err.println(error);
         }
     }
+
+    public boolean validateLineFormat(String line, int expectedFields) {
+        String[] parts = line.split(",");
+        if (parts.length != expectedFields) {
+            addError("Error in number of fields. Expected " + expectedFields + ", " + parts.length + ": " + line);
+            return false;
+        }
+        return true;
+    }
 }
