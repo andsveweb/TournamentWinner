@@ -41,9 +41,8 @@ Halle Berry,87159,12:56:00,13:01:22,sackRace
 Brad Pitt,3554465,14:43:55,14:49:11,1000m
 Marilyn Monroe,51347516:26:37,16:32:58,eggRace
 Hulk Hogan,4658379,12:34:22,12:40:19,skiRace
-Marilyn Monroe,513475,14:06:37,14:12:58,1000m
+Marilyn Monroe,513475,14:06:37,14:12:58,1000 m
 The Rock,1380065,12:39:12,12:46:54,sackRace
 Ryan Reynolds,2792401,16:33:10,16:41:19,eggRace
-andreas,123,10:10:00, 10:15:00, eggRace
-andreas,123,10:10:00, 10:15:00, sackRace
-
+andreas,123,10:10:00, 10:15:00, eggrace
+andreas,123,10:10:00, 10:15:00, sackrace

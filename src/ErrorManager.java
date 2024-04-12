@@ -85,7 +85,8 @@ public class ErrorManager {
 
     // Validate so that the race type is one of the three
     public boolean validateRaceType(String raceType, String line, int lineNumber) {
-        List<String> validateType = Arrays.asList("eggRace", "1000m", "sackRace");
+        List<String> validateType = Arrays.asList("eggrace", "1000m", "sackrace");
+        raceType = raceType.toLowerCase();
         if (!validateType.contains(raceType)) {
             addError("Invalid race type detected in line: " + line + " Race type must be one of eggRace, 1000m, sackRace", lineNumber);
             return false;
