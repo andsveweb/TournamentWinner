@@ -71,31 +71,32 @@ public class Tournament {
         for (Participant participant : participants) {
             System.out.println("Participant: " + participant.getName() + ", ID: " + participant.getId());
             for (RaceResult result : participant.getResults()) {
-                System.out.println("    Race Type: " + result.getRaceType() + ", Duration: " + result.getDuration() + " seconds");
+                System.out.println("    Race Type: " + result.getRaceType() + ", Duration: " + result.getDuration());
 
             }
         }
         System.out.println();
     }
-
     public void determineWinner() {
         List<Participant> winners = new ArrayList<>();
-        long bestTime = Long.MAX_VALUE;
+        long bestAvarageTime = Long.MAX_VALUE;
 
         for (Participant participant : participants) {
             if (participant.hasCompletedAllRaces()) {
                 long totalTime = participant.getTotalTimeInSeconds();
-                if (totalTime < bestTime) {
-                    bestTime = totalTime;
+                long averageTime = totalTime / participant.getResults().size();
+
+                if (averageTime < bestAvarageTime) {
+                    bestAvarageTime = averageTime;
                     winners.clear();
                     winners.add(participant);
-                } else if (totalTime == bestTime) {
+                } else if (averageTime == bestAvarageTime) {
                     winners.add(participant);
                 }
             }
         }
-        if (!winners.isEmpty() && bestTime != Long.MAX_VALUE) {
-            System.out.println("\u001B[32mWinner(s) with the lowest total time of " + formatSeconds(bestTime));
+        if (!winners.isEmpty() && bestAvarageTime != Long.MAX_VALUE) {
+            System.out.println("\u001B[32mWinner(s) with the lowest avarage time of " + formatSeconds(bestAvarageTime));
             for (Participant winner : winners) {
                 System.out.println(winner.getName() + " ID " + winner.getId() + " ");
             }
