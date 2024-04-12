@@ -18,11 +18,9 @@ public class ErrorManager {
     public void addError(String error, int lineNumber) {
         errors.add("Line " + lineNumber + ": " + error);
     }
-
     public boolean hasErrors() {
         return !errors.isEmpty();
     }
-
     // Print the errors
     public void printErrors() {
         if (!hasErrors()) {

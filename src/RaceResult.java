@@ -36,8 +36,6 @@ public class RaceResult {
         return ChronoUnit.SECONDS.between(startTime, endTime);
     }
 
-
-
     public String getRaceType() {
         return raceType;
     }
