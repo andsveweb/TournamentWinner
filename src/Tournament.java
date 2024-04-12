@@ -67,12 +67,15 @@ public class Tournament {
 
     }
     public void printParticipants() {
+        System.out.println("\u001B[33mAll the participants and there races they competed in:\n\u001B[0m");
         for (Participant participant : participants) {
             System.out.println("Participant: " + participant.getName() + ", ID: " + participant.getId());
             for (RaceResult result : participant.getResults()) {
                 System.out.println("    Race Type: " + result.getRaceType() + ", Duration: " + result.getDuration() + " seconds");
+
             }
         }
+        System.out.println();
     }
 
     public void determineWinner() {
@@ -87,11 +90,13 @@ public class Tournament {
             }
         }
         if (winner != null) {
-            System.out.println("Winner is " + winner.getName() + " ID: " + winner.getId() + " with a total time of " + formatSeconds(bestTime));
+            System.out.println("\u001B[32mWinner is " + winner.getName() + " with ID: " + winner.getId() + " with a total time of " + formatSeconds(bestTime));
         } else {
             System.out.println("No winner could be determined (not all participants completed the required races).");
         }
+        System.out.println("\u001B[0m");
     }
+
     private String formatSeconds(long seconds) {
         long hours = seconds / 3600;
         long minutes = (seconds % 3600) / 60;
