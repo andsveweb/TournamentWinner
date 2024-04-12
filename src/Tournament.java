@@ -1,3 +1,8 @@
+/*
+Andreas Svensson
+svefastbygg@gmail.com
+*/
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -5,12 +10,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+This class manage the tournament operations.
+Loading data, calculate winner and handling errors with help from Error manager class
+*/
 public class Tournament {
     private final List<Participant> participants = new ArrayList<>();
     private final ErrorManager errorManager = new ErrorManager();
     private final Map<String, String> participantRegistry = new HashMap<>();
 
-    // Reads the text file and validate number of fields.
+    // Reads the text file and validate number of fields in row.
     public void loadResultsFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
