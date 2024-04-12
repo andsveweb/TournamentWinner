@@ -79,24 +79,31 @@ public class Tournament {
     }
 
     public void determineWinner() {
-        Participant winner = null;
+        List<Participant> winners = new ArrayList<>();
         long bestTime = Long.MAX_VALUE;
 
         for (Participant participant : participants) {
-            long totalTime = participant.getTotalTimeInSeconds();
-            if (totalTime < bestTime) {
-                bestTime = totalTime;
-                winner = participant;
+            if (participant.hasCompletedAllRaces()) {
+                long totalTime = participant.getTotalTimeInSeconds();
+                if (totalTime < bestTime) {
+                    bestTime = totalTime;
+                    winners.clear();
+                    winners.add(participant);
+                } else if (totalTime == bestTime) {
+                    winners.add(participant);
+                }
             }
         }
-        if (winner != null) {
-            System.out.println("\u001B[32mWinner is " + winner.getName() + " with ID: " + winner.getId() + " with a total time of " + formatSeconds(bestTime));
+        if (!winners.isEmpty() && bestTime != Long.MAX_VALUE) {
+            System.out.println("\u001B[32mWinner(s) with the lowest total time of " + formatSeconds(bestTime));
+            for (Participant winner : winners) {
+                System.out.println(winner.getName() + " ID " + winner.getId() + " ");
+            }
+            System.out.println("\u001B[0m");
         } else {
-            System.out.println("No winner could be determined (not all participants completed the required races).");
+            System.out.println("No winner could be determed");
         }
-        System.out.println("\u001B[0m");
     }
-
     private String formatSeconds(long seconds) {
         long hours = seconds / 3600;
         long minutes = (seconds % 3600) / 60;
