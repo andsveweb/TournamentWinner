@@ -18,7 +18,6 @@ public class RaceResult {
         this.endTime = LocalTime.parse(endTime);
         this.raceType = raceType;
     }
-
     // get duration of a race between start and end time in HH:MM:SS
     public String getDuration() {
         long seconds = ChronoUnit.SECONDS.between(startTime, endTime);

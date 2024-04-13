@@ -11,7 +11,7 @@ import java.util.Map;
 
 // Manages error and validation in the application
 public class ErrorManager {
-    // Stores the error in a list
+    // Stores the error in an ordered collection list Array
     private final List<String> errors = new ArrayList<>();
 
     // Adds error message to the list of errors where the error is.

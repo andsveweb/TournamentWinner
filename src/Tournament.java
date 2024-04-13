@@ -5,11 +5,11 @@ svefastbygg@gmail.com
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /*
 This class manage the tournament operations.
 Loading data, calculate winner and handling errors with help from Error manager class
@@ -26,10 +26,11 @@ public class Tournament {
             int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
+                // Skips line if don't have 5 fields
                 if (!errorManager.validateLineFormat(line, 5, lineNumber)) {
                     continue;
                 }
-
+                //
                 String[] parts = line.split(",");
                 String name = parts[0].trim().toLowerCase();
                 String id = parts[1].trim();
@@ -51,6 +52,7 @@ public class Tournament {
 
 
                 try {
+                    // Create and add race result to the correct participant
                     RaceResult result = new RaceResult(parts[2].trim(), parts[3].trim(), parts[4].trim());
                     Participant participant = findOrCreateParticipantBy(name, id);
                     participant.addRaceResult(result);
@@ -64,6 +66,7 @@ public class Tournament {
             errorManager.addError("Error reading file " + e.getMessage(), -1);
         }
     }
+    // find existing participant or create a new one who has not been added yet.
     private Participant findOrCreateParticipantBy(String name, String id) {
         for (Participant participant : participants) {
             if (participant.getId().equals(id) && participant.getName().equals(name)) {
@@ -75,6 +78,8 @@ public class Tournament {
             return newParticipant;
 
     }
+
+    // Print out result of all correct formatted participant and there races
     public void printParticipants() {
         System.out.println("\u001B[33mAll the participants and there races they competed in:\n\u001B[0m");
         for (Participant participant : participants) {
@@ -86,6 +91,8 @@ public class Tournament {
         }
         System.out.println();
     }
+
+    // Calculate the winner(s) based on lowest average time.
     public void determineWinner() {
         List<Participant> winners = new ArrayList<>();
         long bestAvarageTime = Long.MAX_VALUE;
@@ -104,6 +111,7 @@ public class Tournament {
                 }
             }
         }
+
         if (!winners.isEmpty() && bestAvarageTime != Long.MAX_VALUE) {
             System.out.println("\u001B[32mWinner(s) with the lowest avarage time of " + formatSeconds(bestAvarageTime));
             for (Participant winner : winners) {
@@ -114,14 +122,19 @@ public class Tournament {
             System.out.println("No winner could be determed");
         }
     }
+
+    // Format seconds into HH:MM:SS
     private String formatSeconds(long seconds) {
-        long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
-        long secs = seconds % 60;
+        Duration duration = Duration.ofSeconds(seconds);
+        long hours = duration.toHours();
+        long minutes = duration.toMinutes();
+        long secs = duration.toHours();
         return String.format("%02d:%02d:%02d", hours, minutes, secs);
     }
 
+    // calls the error manager to print all errors
     public void checkAndReportErrors() {
+
         errorManager.printErrors();
     }
 }
