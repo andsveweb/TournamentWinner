@@ -8,3 +8,4 @@ It reads participant data from a text file, calculates total race times for each
 Complete Race Validation: Ensures all participants have completed the required races.
 Time Calculation: Calculates total race times for participants.
 Winner Determination: Identifies the winner(s) based on the lowest race times.
+Printing: Display the winner(s) average time in the three races.
