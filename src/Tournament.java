@@ -20,9 +20,10 @@ public class Tournament {
 
     // Reads the text file and validate number of fields in row.
     public void loadResultsFromFile(String filePath) {
+        int lineNumber = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            int lineNumber = 0;
+
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
                 // Skips line if don't have 5 fields
@@ -62,7 +63,7 @@ public class Tournament {
                 }
             }
         } catch (Exception e) {
-            errorManager.addError("Error reading file " + e.getMessage(), -1);
+            errorManager.addError("Error reading file " + ". Error" + e.getMessage(), lineNumber);
         }
     }
     // find existing participant or create a new one who has not been added yet.
