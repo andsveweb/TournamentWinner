@@ -5,7 +5,6 @@ svefastbygg@gmail.com
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -125,10 +124,9 @@ public class Tournament {
 
     // Format seconds into HH:MM:SS
     private String formatSeconds(long seconds) {
-        Duration duration = Duration.ofSeconds(seconds);
-        long hours = duration.toHours();
-        long minutes = duration.toMinutes();
-        long secs = duration.toHours();
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, secs);
     }
 
