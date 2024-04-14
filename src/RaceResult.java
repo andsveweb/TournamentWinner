@@ -13,12 +13,14 @@ public class RaceResult {
     private final LocalTime endTime;
     private final String raceType;
 
+    // Constructor initialize new instance. Local time parse gets instance of localtime from a string with specific format
     public RaceResult(String startTime, String endTime, String raceType) {
         this.startTime = LocalTime.parse(startTime);
         this.endTime = LocalTime.parse(endTime);
         this.raceType = raceType;
     }
     // get duration of a race between start and end time in HH:MM:SS
+
     public String getDuration() {
         long seconds = ChronoUnit.SECONDS.between(startTime, endTime);
         Duration duration = Duration.ofSeconds(seconds);
